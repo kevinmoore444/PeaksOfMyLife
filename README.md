@@ -16,7 +16,7 @@ All this data will be saved and displayed on your home page every time you log i
 <img width="1236" alt="Screenshot 2023-05-05 at 3 52 39 PM" src="https://user-images.githubusercontent.com/116651957/236582336-083d63bb-b3ac-4641-b49e-3cfd587f5760.png">
 
 ## Contact
-Thank you for your time. You can contact me at:
+Thank you for your time. You can contact me with questions at:
 kevinmoore444@gmail.com
 
 
