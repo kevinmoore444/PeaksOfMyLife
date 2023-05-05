@@ -1,5 +1,5 @@
 # Peaks of My Life
-An eCommerce site dedicated to our favorite board games. Go shopping and find your next favorite game today!
+A personal page to keep track of your lifetime's high altitude mountain summits!
 
 
 ## Technologies Used
