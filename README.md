@@ -3,9 +3,9 @@ An eCommerce site dedicated to our favorite board games. Go shopping and find yo
 
 
 ## Technologies Used
-Back End: MongoDB, Express, Node.js
+**Back End**: MongoDB, Express, Node.js
 
-Front End: HTML, CSS, React, Bootstrap
+**Front End**: HTML, CSS, React, Bootstrap
 
 ## Features
 Register to create your own personal profile.
