@@ -48,6 +48,7 @@ const Summits = () => {
 // Log a Summit
 // Takes in the data from our form and submits it as a post request along with user credentials.
 const handleSubmit = (e) => {
+  e.preventDefault();
   const mountainObj = {mountainName, year, altitude, country, image}
   axios.post('http://localhost:8000/api/summit', mountainObj, {withCredentials:true})
   .then(res => {
@@ -81,6 +82,34 @@ const handleDelete = (e, id) => {
   .catch((err) => {console.log(err)})
 }
 
+//Handle File Upload - invoked onChange for the image upload section
+//Invokes "convertBase64" which is defined below
+const handleFileUpload = async (e) => {
+  const file = e.target.files[0];
+  const base64 = await convertBase64(file);
+  console.log(base64)
+  setImage(base64);
+};
+
+//Converts the file to base64. This is invoked by the handleFileUpload function.
+const convertBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
+
+
+
+
 
 
 
@@ -109,7 +138,7 @@ const handleDelete = (e, id) => {
                 <input type="text" onChange={(e) => {setCountry(e.target.value)}} className='form-control' placeholder='Country*'></input>
             </div>
             <div className='form-group'>
-                <input type="text" onChange={(e) => {setImage(e.target.value)}} className='form-control' placeholder='ImageURL*'></input>
+                <input type="file" onChange={(e) => {handleFileUpload(e)}} className='form-control'></input>
             </div>
             <br/>
             <button type="submit" className='btn btn-primary'>Add</button>
@@ -118,11 +147,11 @@ const handleDelete = (e, id) => {
       </div>
       {/* Display All Summits */}
       <div>
-        <h1><u>Peaks of My Life</u></h1>
-        <table className='table'>
+        <h1 style={{fontSize: 30, marginTop: 60, marginBottom:60}}><u>Peaks of My Life</u></h1>
+        <table className='table table-hover table-responsive' style={{width: "80%", marginLeft: "auto", marginRight: "auto", fontSize: 18}}>
             <thead>
                 <tr>
-                    <th>Image</th>
+                    <th style={{width: "15%"}}>Image</th>
                     <th>Name</th>
                     <th>Altitude</th>
                     <th>Country</th>
@@ -136,12 +165,12 @@ const handleDelete = (e, id) => {
                     mountainList.map((mountain, idx) => {
                         return(
                             <tr key={idx}>
-                              <td><img src={mountain.image} alt="SummitView" height="250px"></img></td>
+                              <td><img src={mountain.image} alt="SummitView" height="150px"></img></td>
                               <td>{mountain.mountainName}</td>
                               <td>{mountain.altitude.toLocaleString('en-US')}</td>
                               <td>{mountain.country}</td>
                               <td>{mountain.year}</td>
-                              <td><button className='btn btn-outline-primary'><Link to={`/update/${mountain._id}`}>Update</Link></button> | <button className='btn btn-danger' onClick={ (e)=> {window.confirm("Are you sure you want to delete?") && handleDelete(e, mountain._id)}}>Delete</button></td>
+                              <td><button className='btn btn-outline-primary' style={{marginRight: "10px" }}><Link to={`/update/${mountain._id}`}>Update</Link></button><button className='btn btn-danger' onClick={ (e)=> {window.confirm("Are you sure you want to delete?") && handleDelete(e, mountain._id)}}>Delete</button></td>
                             </tr>
                         )
                     })
